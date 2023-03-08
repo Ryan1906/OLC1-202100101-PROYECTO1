@@ -1,0 +1,40 @@
+package analizador;
+import java_cup.runtime.*;
+import java.util.ArrayList;         // importar arraylist
+import Errores.Excepcion;           // importar la clase de errores
+
+
+
+//PARSER 
+parser code
+{://Codigo visible
+    
+    ///  declarar un arraylist para los errores sintacticos 
+    public  ArrayList<Excepcion> erroresSintacticos = new ArrayList<Excepcion>();
+
+    public void syntax_error(Symbol s){
+        //System.out.println("Error R de sintaxis: "+ s.value +" Linea "+(s.left+1)+" columna "+(s.right+1) );
+        erroresSintacticos.add(new Excepcion("Sintáctico", "Error Recuperable de sintaxis: "+ s.value , Integer.toString(s.left+1), Integer.toString(s.right+1) ));
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        //System.out.println("Error NR de sintaxis: "+ s.value +" Linea "+(s.left+1)+" columna "+(s.right+1) );
+        erroresSintacticos.add(new Excepcion("Sintáctico", "Error No Recuperable de sintaxis: "+ s.value , Integer.toString(s.left+1), Integer.toString(s.right+1) ));
+    }
+
+:}
+
+terminal CONJ, DOSPUNTOS, GUION, MAYOR, COMA, TILDE, LLAVEA, LLAVEC, CONCATENACION, DISYUNCION, ASTERISCO, SUMA, INTERROGACION, 
+PORCENTAJE, PUNTO_Y_COMA, IDENTIFICADOR, MINUSCULAS, MAYUSCULAS, NUMEROS, CARACTERES, CADENA;
+
+non terminal Codigo;
+non terminal Lexema;
+
+start with Codigo;
+
+Codigo::= Codigo Lexema | 
+                Lexema;
+
+Lexema::= CONJ| DOSPUNTOS| GUION| MAYOR| COMA| TILDE| LLAVEA| LLAVEC|
+ CONCATENACION| DISYUNCION| ASTERISCO| SUMA| INTERROGACION| PORCENTAJE| PUNTO_Y_COMA| IDENTIFICADOR| 
+MINUSCULAS| MAYUSCULAS| NUMEROS| CARACTERES | CADENA;
