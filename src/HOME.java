@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package MainInterface;
+
 
 import analizador.lexico;
 import analizador.sintaxis;
@@ -12,6 +12,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
+import analizador.AFD;
+import analizador.Evaluacion;
+import java.io.PrintWriter;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 /**
  *
@@ -50,6 +58,8 @@ public class HOME extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TXTConsole = new javax.swing.JTextArea();
         jPanel10 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -197,15 +207,21 @@ public class HOME extends javax.swing.JFrame {
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 200, 150));
 
+        TXTConsole.setColumns(20);
+        TXTConsole.setRows(5);
+        jScrollPane2.setViewportView(TXTConsole);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1450, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1001, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 449, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 660, 1450, -1));
@@ -265,6 +281,11 @@ public class HOME extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Microsoft JhengHei", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("ANALIZAR ENTRADA");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -435,14 +456,18 @@ public class HOME extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    lexico scanner;
+    sintaxis analizador;
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String entrada = TXTAutomata.getText();
          try {
             
-            lexico scanner = new lexico(new java.io.StringReader(entrada));
-            sintaxis analizador = new sintaxis(scanner);
+            scanner = new lexico(new java.io.StringReader(entrada));
+            analizador = new sintaxis(scanner);
             analizador.parse();
+            
             System.out.println("Analisis finalizado");
 
             // generar reporte de errores lexicos
@@ -466,6 +491,19 @@ public class HOME extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+         
+         for (AFD afd : analizador.arboles) {
+            
+            try {
+                afd.Ejecutar();
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(HOME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                java.util.logging.Logger.getLogger(HOME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+            
+                
+            }
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -541,6 +579,63 @@ public class HOME extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    public static String eliminarBarraInversa(String cadena) {
+    return cadena.replace("\\'", "'");
+    }
+    
+    public void generador(String dir, String nombre, String texto) throws IOException {
+        Path filePath = Paths.get(dir, nombre + ".json");
+        File file = filePath.toFile();
+
+        try (PrintWriter writer = new PrintWriter(file)) {
+            writer.print(texto);
+        }
+    }
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+String salida="";
+        String resultados = "[\n";
+        int count = 0; // Contador de objetos JSON
+        for (Evaluacion p : analizador.pruebas) {
+            for (AFD afd : analizador.arboles) {
+                if (afd.getNombre().equals(p.getAfd())) {
+                    boolean res = afd.analisis(analizador.conjuntos, p.getCadena());
+                    String cadenaSinBarra = eliminarBarraInversa(p.getCadena());
+                    resultados += "{\n"
+                            + "\"Valor\": "+cadenaSinBarra+",\n"
+                            + "\"Expresion_regular\": \""+p.getAfd()+"\",\n"
+                            + "\"Cadena Valida\": \""+res+"\"\n"
+                            + "}";
+                    // Verificar si es el último objeto JSON en la lista
+                    if (++count < analizador.pruebas.size()) {
+                        resultados += ","; // Agregar coma solo si no es el último
+                    }
+                    if(res){
+                        salida += "La expresión: "+ p.getCadena()+" es válida con la expresión regular "+ p.getAfd()+"\n";
+                    } else{
+                        salida += "La expresión: "+ p.getCadena()+" no es válida con la expresión regular "+ p.getAfd()+"\n";
+                    }
+                    break;
+                }
+            }
+        }
+        resultados+="]\n"; // Agregar corchete de cierre
+        
+        TXTConsole.setText( salida+"Analisis de gramática finalizado");
+        //TXTConsole.setText("");
+   
+        try {
+            generador("src/SALIDAS_202100101/", "Reporte", resultados);
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(HOME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+    
+        
+      
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     
 public void guardarComo(JTextArea texto) {
     JFileChooser fileChooser = new JFileChooser();
@@ -599,6 +694,7 @@ public void guardarComo(JTextArea texto) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea TXTAutomata;
+    private javax.swing.JTextArea TXTConsole;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -627,5 +723,6 @@ public void guardarComo(JTextArea texto) {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

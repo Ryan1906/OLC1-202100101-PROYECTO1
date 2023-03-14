@@ -1,0 +1,103 @@
+graph{label=<
+ <TABLE border="1" cellspacing="2" cellpadding="10"  >
+  <TR>
+  <TD rowspan="2" bgcolor="#c5e1a5"> <font color="black"><b> Estado </b></font></TD>
+  <TD colspan="9" bgcolor="#c5e1a5"> <font color="black"><b> Terminales </b></font></TD>
+  </TR>
+  <TR>
+  <TD bgcolor="#c5e1a5"> <font color="black"><b> "C" </b></font></TD>
+  <TD bgcolor="#c5e1a5"> <font color="black"><b> "O" </b></font></TD>
+  <TD bgcolor="#c5e1a5"> <font color="black"><b> "M" </b></font></TD>
+  <TD bgcolor="#c5e1a5"> <font color="black"><b> "P" </b></font></TD>
+  <TD bgcolor="#c5e1a5"> <font color="black"><b> "I" </b></font></TD>
+  <TD bgcolor="#c5e1a5"> <font color="black"><b> "1" </b></font></TD>
+  <TD bgcolor="#c5e1a5"> <font color="black"><b> letra </b></font></TD>
+  <TD bgcolor="#c5e1a5"> <font color="black"><b> digito </b></font></TD>
+  <TD bgcolor="#c5e1a5"> <font color="black"><b> " " </b></font></TD>
+  </TR>
+  
+  <TR>
+  <TD>S0 [0]</TD>
+  <TD>S1</TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  </TR>
+  <TR>
+  <TD>S1 [1]</TD>
+  <TD> [] </TD>
+  <TD>S2</TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  </TR>
+  <TR>
+  <TD>S2 [2]</TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD>S3</TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  </TR>
+  <TR>
+  <TD>S3 [3]</TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD>S4</TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  </TR>
+  <TR>
+  <TD>S4 [4]</TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD>S5</TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  </TR>
+  <TR>
+  <TD>S5 [5]</TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD>S6</TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  </TR>
+  <TR>
+  <TD>S6 [6, 7, 8, 9]</TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD> [] </TD>
+  <TD>S6</TD>
+  <TD>S6</TD>
+  <TD>S6</TD>
+  </TR>
+ </TABLE>>}

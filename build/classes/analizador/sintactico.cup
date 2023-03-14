@@ -7,8 +7,13 @@ import Errores.Excepcion;           // importar la clase de errores
 
 //PARSER 
 parser code
-{://Codigo visible
-    
+{:
+    /// Arboles 
+    public ArrayList<AFD> arboles = new ArrayList <>();
+    public ArrayList<Conjunto> conjuntos = new ArrayList<Conjunto>();
+    public ArrayList<Evaluacion> pruebas = new ArrayList<Evaluacion>();
+
+
     ///  declarar un arraylist para los errores sintacticos 
     public  ArrayList<Excepcion> erroresSintacticos = new ArrayList<Excepcion>();
 
@@ -24,17 +29,108 @@ parser code
 
 :}
 
-terminal CONJ, DOSPUNTOS, GUION, MAYOR, COMA, TILDE, LLAVEA, LLAVEC, CONCATENACION, DISYUNCION, ASTERISCO, SUMA, INTERROGACION, 
-PORCENTAJE, PUNTO_Y_COMA, IDENTIFICADOR, MINUSCULAS, MAYUSCULAS, NUMEROS, CARACTERES, CADENA;
+terminal String CONJ, DOSPUNTOS, FLECHA, COMA, TILDE, LLAVEA, LLAVEC, CONCATENACION, DISYUNCION, ASTERISCO, SUMA, INTERROGACION, 
+PORCENTAJE, PUNTO_Y_COMA, IDENTIFICADOR, MINUSCULAS, MAYUSCULAS, NUMEROS, CARACTERES, CARACTER, CADENA;
 
-non terminal Codigo;
-non terminal Lexema;
+non terminal codigo;
+non terminal conjuntos, comprobacion, instruccion, regex, notacion, agrupacion, singular, evaluacion;
 
-start with Codigo;
+start with codigo;
 
-Codigo::= Codigo Lexema | 
-                Lexema;
+codigo::= LLAVEA conjuntos PORCENTAJE PORCENTAJE PORCENTAJE PORCENTAJE comprobacion LLAVEC;
 
-Lexema::= CONJ| DOSPUNTOS| GUION| MAYOR| COMA| TILDE| LLAVEA| LLAVEC|
- CONCATENACION| DISYUNCION| ASTERISCO| SUMA| INTERROGACION| PORCENTAJE| PUNTO_Y_COMA| IDENTIFICADOR| 
-MINUSCULAS| MAYUSCULAS| NUMEROS| CARACTERES | CADENA;
+conjuntos::= conjuntos instruccion | 
+                    instruccion;
+
+instruccion::= CONJ DOSPUNTOS IDENTIFICADOR:hola FLECHA notacion:b PUNTO_Y_COMA  {: conjuntos.add(new Conjunto(hola,(ArrayList) b)); :}| 
+                        IDENTIFICADOR:hola FLECHA regex:a PUNTO_Y_COMA {:
+                             arboles.add(new AFD(hola, (arbol)a));
+                            :};
+
+notacion::= MAYUSCULAS:a TILDE MAYUSCULAS:b {:
+            ArrayList<Integer> nuevo_conjunto = new ArrayList<Integer>();
+            for(int i = (int) a.charAt(0);i<=(int) b.charAt(0);i++){
+                nuevo_conjunto.add(i);
+            }RESULT = nuevo_conjunto;
+            :}|
+                MINUSCULAS:a TILDE MINUSCULAS:b {:
+            ArrayList<Integer> nuevo_conjunto = new ArrayList<Integer>();
+            for(int i = (int) a.charAt(0);i<=(int) b.charAt(0);i++){
+                nuevo_conjunto.add(i);
+            }RESULT = nuevo_conjunto;
+            :}|
+                NUMEROS:a TILDE NUMEROS:b  {:
+            ArrayList<Integer> nuevo_conjunto = new ArrayList<Integer>();
+            for(int i = (int) a.charAt(0);i<=(int) b.charAt(0);i++){
+                nuevo_conjunto.add(i);
+            }RESULT = nuevo_conjunto;
+            :}|    
+                CARACTERES:a TILDE CARACTERES:b {:
+            ArrayList<Integer> nuevo_conjunto = new ArrayList<Integer>();
+            for(int i = (int) a.charAt(0);i<=(int) b.charAt(0);i++){
+                nuevo_conjunto.add(i);
+            }RESULT = nuevo_conjunto;
+            :}|
+                agrupacion:a {:
+                String notacion = (String) a;
+                ArrayList<Integer> nuevo_conjunto = new ArrayList<>();
+                for(int i = 0;i < notacion.length();i++)
+                {
+                   nuevo_conjunto.add((int) notacion.charAt(i));
+                }
+                RESULT = nuevo_conjunto;
+                :};
+
+agrupacion::= agrupacion:a COMA singular:b {:RESULT = (String)a+(String)b;:}|
+                    singular:a {:RESULT = a;:};
+
+singular::= MAYUSCULAS:a {:RESULT = a;:} |
+                MINUSCULAS:a {:RESULT = a;:} |
+                CARACTERES:a {:RESULT = a;:} |
+                NUMEROS:a {:RESULT = a;:};
+
+regex::= CONCATENACION:a regex:b regex:c {:
+                    arbol padre = new arbol(a);
+                    padre.setHijoI((arbol)b);
+                    padre.setHijoD((arbol)c);
+                    RESULT = padre;
+            :} |
+            DISYUNCION:a regex:b regex:c {:
+                    arbol padre = new arbol(a);
+                    padre.setHijoI((arbol)b);
+                    padre.setHijoD((arbol)c);
+                    RESULT = padre;
+            :} |
+            ASTERISCO:a regex:b {:
+                    arbol padre = new arbol(a);
+                    padre.setHijoI((arbol)b);
+                    RESULT = padre;
+            :} |
+            SUMA:a regex:b {:
+                    arbol padre = new arbol(a);
+                    padre.setHijoI((arbol)b);
+                    RESULT = padre;
+            :} |
+            INTERROGACION:a regex:b {:
+                    arbol padre = new arbol(a);
+                    padre.setHijoI((arbol)b);
+                    RESULT = padre;
+            :} |
+            CARACTER:a {:
+                    arbol hoja=new arbol(a);
+                    hoja.setHoja(true);
+                    hoja.setAnulable(false);
+                    RESULT = hoja;
+            :} |
+            LLAVEA IDENTIFICADOR:a LLAVEC {:
+                    arbol hoja=new arbol(a);
+                    hoja.setHoja(true);
+                    hoja.setAnulable(false);
+                    RESULT = hoja;
+            :};
+
+comprobacion::= comprobacion evaluacion |
+                        evaluacion;
+
+evaluacion::= IDENTIFICADOR:a DOSPUNTOS CADENA:b PUNTO_Y_COMA {: pruebas.add(new Evaluacion(a,b));:}|
+                     IDENTIFICADOR:a DOSPUNTOS CARACTER:b PUNTO_Y_COMA {: pruebas.add(new Evaluacion(a,b));:};
