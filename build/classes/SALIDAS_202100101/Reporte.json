@@ -4,7 +4,7 @@
 "Expresion_regular": "cadena",
 "Cadena Valida": "true"
 },{
-"Valor": "COMPI2 sale con 100",
+"Valor": "COMPI1 sale con 100",
 "Expresion_regular": "frase",
-"Cadena Valida": "false"
+"Cadena Valida": "true"
 }]

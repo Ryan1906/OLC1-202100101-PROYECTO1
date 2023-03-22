@@ -18,7 +18,7 @@ import java.util.Collections;
 
 /**
  *
- * @author pbara
+ * @author rjrsigue
  */
 public class AFD {
     private arbol expresiones;

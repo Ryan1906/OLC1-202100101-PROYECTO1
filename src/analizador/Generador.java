@@ -6,7 +6,7 @@ package analizador;
 
 /**
  *
- * @author pbara
+ * @author rjrsigue
  */
 public class Generador {
         public static void main(String[] args) {

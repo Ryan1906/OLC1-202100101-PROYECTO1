@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author pbara
+ * @author rjrsigue
  */
 public class Siguientes {
      private String simbolo;

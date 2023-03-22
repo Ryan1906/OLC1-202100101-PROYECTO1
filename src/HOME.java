@@ -14,11 +14,21 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import analizador.AFD;
 import analizador.Evaluacion;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.List;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import javax.swing.ImageIcon;
 
 
 /**
@@ -66,16 +76,13 @@ public class HOME extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jPanel15 = new javax.swing.JPanel();
+        JImagen = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ExREGAN USAC");
@@ -310,86 +317,13 @@ public class HOME extends javax.swing.JFrame {
 
         jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 340, 90));
 
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel11.setBackground(new java.awt.Color(153, 153, 153));
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-
-        jPanel12.setBackground(new java.awt.Color(153, 153, 153));
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-
-        jPanel13.setBackground(new java.awt.Color(153, 153, 153));
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-
-        jPanel14.setBackground(new java.awt.Color(153, 153, 153));
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(111, 111, 111)
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 118, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 200, 560));
-
         jComboBox1.setBackground(new java.awt.Color(79, 79, 79));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Árboles", "Siguientes", "Transiciones", "Autómatas", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Árboles", "Siguientes", "Transiciones", "Autómatas", "AFND" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 30, 250, 30));
 
         jPanel15.setBackground(new java.awt.Color(255, 255, 255));
@@ -398,11 +332,17 @@ public class HOME extends javax.swing.JFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(JImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(JImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 110, 680, 420));
@@ -425,6 +365,11 @@ public class HOME extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("Segoe UI Black", 3, 48)); // NOI18N
         jButton5.setText("<");
         jButton5.setAlignmentY(0.3F);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 550, 80, 60));
 
         jButton7.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
@@ -435,6 +380,14 @@ public class HOME extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 550, 70, 60));
+
+        jButton8.setText("MOSTRAR");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 20, 120, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -452,13 +405,146 @@ public class HOME extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+    
+    
+    
+    
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        
+
+
+        
+    if (jComboBox1.getSelectedItem().equals("Árboles")) {
+            String Carpeta = "ARBOLES_202100101";
+            URL urlCarpeta = getClass().getClassLoader().getResource(Carpeta);
+            File archivo = new File(urlCarpeta.getPath());
+            String[] nombresarchivos = archivo.list();
+            
+            
+            System.out.println(nombresarchivos.length);
+            System.out.println(contadorimagenes);
+            
+            
+            String Archivo = nombresarchivos[contadorimagenes];
+            System.out.println(nombresarchivos[contadorimagenes]);
+            if (contadorimagenes ==  nombresarchivos.length-1) {
+            contadorimagenes=0;
+            }else{
+                contadorimagenes = contadorimagenes+1;
+            }
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+
+            
+            
+        } else if (jComboBox1.getSelectedItem().equals("Autómatas")) {
+            String Carpeta = "AFD_202100101";
+            URL urlCarpeta = getClass().getClassLoader().getResource(Carpeta);
+            File archivo = new File(urlCarpeta.getPath());
+            String[] nombresarchivos = archivo.list();
+            
+            
+            System.out.println(nombresarchivos.length);
+            System.out.println(contadorimagenes);
+            
+            
+            String Archivo = nombresarchivos[contadorimagenes];
+            System.out.println(nombresarchivos[contadorimagenes]);
+            if (contadorimagenes ==  nombresarchivos.length-1) {
+            contadorimagenes=0;
+            }else{
+                contadorimagenes = contadorimagenes+1;
+            }
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+
+            
+        } else if (jComboBox1.getSelectedItem().equals("Siguientes")) {
+            String Carpeta = "SIGUIENTES_202100101";
+            URL urlCarpeta = getClass().getClassLoader().getResource(Carpeta);
+            File archivo = new File(urlCarpeta.getPath());
+            String[] nombresarchivos = archivo.list();
+            
+            
+            System.out.println(nombresarchivos.length);
+            System.out.println(contadorimagenes);
+            
+            
+            String Archivo = nombresarchivos[contadorimagenes];
+            System.out.println(nombresarchivos[contadorimagenes]);
+            if (contadorimagenes ==  nombresarchivos.length-1) {
+            contadorimagenes=0;
+            }else{
+                contadorimagenes = contadorimagenes+1;
+            }
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+            
+        }else if (jComboBox1.getSelectedItem().equals("Transiciones")) {
+            String Carpeta = "TRANSICIONES_202100101";
+            URL urlCarpeta = getClass().getClassLoader().getResource(Carpeta);
+            File archivo = new File(urlCarpeta.getPath());
+            String[] nombresarchivos = archivo.list();
+            
+            
+            System.out.println(nombresarchivos.length);
+            System.out.println(contadorimagenes);
+            
+            
+            String Archivo = nombresarchivos[contadorimagenes];
+            System.out.println(nombresarchivos[contadorimagenes]);
+            if (contadorimagenes ==  nombresarchivos.length-1) {
+            contadorimagenes=0;
+            }else{
+                contadorimagenes = contadorimagenes+1;
+            }
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+            
+        }else if (jComboBox1.getSelectedItem().equals("AFND")) {
+            String Carpeta = "AFND_202100101";
+            URL urlCarpeta = getClass().getClassLoader().getResource(Carpeta);
+            File archivo = new File(urlCarpeta.getPath());
+            String[] nombresarchivos = archivo.list();
+            
+            
+            System.out.println(nombresarchivos.length);
+            System.out.println(contadorimagenes);
+            
+            
+            String Archivo = nombresarchivos[contadorimagenes];
+            System.out.println(nombresarchivos[contadorimagenes]);
+            if (contadorimagenes ==  nombresarchivos.length-1) {
+            contadorimagenes=0;
+            }else{
+                contadorimagenes = contadorimagenes+1;
+            }
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+            
+        }
+        
+        
+        
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     lexico scanner;
     sintaxis analizador;
-    
+    String[][] Errores;
+    int contadorEr =0;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String entrada = TXTAutomata.getText();
@@ -485,6 +571,14 @@ public class HOME extends javax.swing.JFrame {
             } else {
                 analizador.erroresSintacticos.forEach((error) -> {
                     System.out.println(error.getTipo() + "| " + error.getDescripcion() + "| " + error.getLinea() + "| " + error.getColumna());
+                    String Indice = Integer.toString(contadorEr);
+                    Errores[contadorEr][0] = Indice;
+                    Errores[contadorEr][1] = error.getTipo();
+                    Errores[contadorEr][2] = error.getDescripcion();
+                    Errores[contadorEr][3] = error.getLinea();
+                    Errores[contadorEr][4] = error.getColumna();
+                    
+                    
                 });
             }
 
@@ -504,7 +598,44 @@ public class HOME extends javax.swing.JFrame {
             
                 
             }
+        String nombreArchivo = "ERRORES.html";
+    File archivo = new File(nombreArchivo);
+    try {
+        PrintWriter writer = new PrintWriter(archivo);
+        writer.println("<html>");
+        writer.println("<head>");
+        writer.println("<title> Tabla de Ejemplo </title>");
+        writer.println("</head>");
+        writer.println("<body>");
+        writer.println("<h1> Mi tabla de ejemplo </h1>");
+        writer.println("<table>");
+        writer.println("<tr>");
+        writer.println("<th> Columna 1 </th>");
+        writer.println("<th> Columna 2 </th>");
+        writer.println("<th> Columna 3 </th>");
+        writer.println("<th> Columna 4 </th>");
+        writer.println("<th> Columna 5 </th>");
+        writer.println("</tr>");
         
+        // Aquí agregamos 3 filas de ejemplo a la tabla
+        for (int i = 1; i <= contadorEr; i++) {
+            writer.println("<tr>");
+            writer.println("<td>"+Errores[i][0]+"</td>");
+            writer.println("<td>"+Errores[i][1]+"</td>");
+            writer.println("<td>"+Errores[i][2]+"</td>");
+            writer.println("<td>"+Errores[i][3]+"</td>");
+            writer.println("<td>"+Errores[i][4]+"</td>");
+            writer.println("</tr>");
+        }
+        
+        writer.println("</table>");
+        writer.println("</body>");
+        writer.println("</html>");
+        writer.close();
+        System.out.println("El archivo se ha creado correctamente.");
+    } catch (FileNotFoundException ex) {
+        System.out.println("Error al crear el archivo: " + ex.getMessage());
+    }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -631,10 +762,209 @@ String salida="";
             java.util.logging.Logger.getLogger(HOME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-    
+        
+            
+
+
+
+
+
+
+        
+        
         
       
     }//GEN-LAST:event_jButton2ActionPerformed
+ 
+    int contadorimagenes =0;
+    
+    
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+             if (jComboBox1.getSelectedItem().equals("Árboles")) {
+            String Carpeta = "ARBOLES_202100101";
+            String Archivo = "cadena.png";
+    
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+            
+        } else if (jComboBox1.getSelectedItem().equals("Autómatas")) {
+            String Carpeta = "AFD_202100101";
+            String Archivo = "cadena.png";
+    
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+            
+        } else if (jComboBox1.getSelectedItem().equals("Siguientes")) {
+            String Carpeta = "SIGUIENTES_202100101";
+            String Archivo = "cadena.png";
+    
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+            
+        }else if (jComboBox1.getSelectedItem().equals("Transiciones")) {
+            String Carpeta = "TRANSICIONES_202100101";
+            String Archivo = "cadena.png";
+    
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+            
+        }else if (jComboBox1.getSelectedItem().equals("AFND")) {
+            String Carpeta = "AFND_202100101";
+            String Archivo = "cadena.png";
+    
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+            
+        }
+        
+        
+
+    
+        
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        
+        
+    if (jComboBox1.getSelectedItem().equals("Árboles")) {
+            String Carpeta = "ARBOLES_202100101";
+            URL urlCarpeta = getClass().getClassLoader().getResource(Carpeta);
+            File archivo = new File(urlCarpeta.getPath());
+            String[] nombresarchivos = archivo.list();
+            
+            
+            System.out.println(nombresarchivos.length);
+            System.out.println(contadorimagenes);
+            
+            
+            String Archivo = nombresarchivos[contadorimagenes];
+            System.out.println(nombresarchivos[contadorimagenes]);
+            if (contadorimagenes ==  1) {
+            contadorimagenes=nombresarchivos.length-1;
+            }else{
+                contadorimagenes = contadorimagenes-1;
+            }
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+
+            
+            
+        } else if (jComboBox1.getSelectedItem().equals("Autómatas")) {
+            String Carpeta = "AFD_202100101";
+            URL urlCarpeta = getClass().getClassLoader().getResource(Carpeta);
+            File archivo = new File(urlCarpeta.getPath());
+            String[] nombresarchivos = archivo.list();
+            
+            
+            System.out.println(nombresarchivos.length);
+            System.out.println(contadorimagenes);
+            
+            
+            String Archivo = nombresarchivos[contadorimagenes];
+            System.out.println(nombresarchivos[contadorimagenes]);
+            if (contadorimagenes ==  1) {
+            contadorimagenes=nombresarchivos.length-1;
+            }else{
+                contadorimagenes = contadorimagenes-1;
+            }
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+
+            
+        } else if (jComboBox1.getSelectedItem().equals("Siguientes")) {
+            String Carpeta = "SIGUIENTES_202100101";
+            URL urlCarpeta = getClass().getClassLoader().getResource(Carpeta);
+            File archivo = new File(urlCarpeta.getPath());
+            String[] nombresarchivos = archivo.list();
+            
+            
+            System.out.println(nombresarchivos.length);
+            System.out.println(contadorimagenes);
+            
+            
+            String Archivo = nombresarchivos[contadorimagenes];
+            System.out.println(nombresarchivos[contadorimagenes]);
+            if (contadorimagenes ==  1) {
+            contadorimagenes=nombresarchivos.length-1;
+            }else{
+                contadorimagenes = contadorimagenes-1;
+            }
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+            
+        }else if (jComboBox1.getSelectedItem().equals("Transiciones")) {
+            String Carpeta = "TRANSICIONES_202100101";
+            URL urlCarpeta = getClass().getClassLoader().getResource(Carpeta);
+            File archivo = new File(urlCarpeta.getPath());
+            String[] nombresarchivos = archivo.list();
+            
+            
+            System.out.println(nombresarchivos.length);
+            System.out.println(contadorimagenes);
+            
+            
+            String Archivo = nombresarchivos[contadorimagenes];
+            System.out.println(nombresarchivos[contadorimagenes]);
+            if (contadorimagenes ==  1) {
+            contadorimagenes=nombresarchivos.length-1;
+            }else{
+                contadorimagenes = contadorimagenes-1;
+            }
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+            
+        }else if (jComboBox1.getSelectedItem().equals("AFND")) {
+            String Carpeta = "AFND_202100101";
+            URL urlCarpeta = getClass().getClassLoader().getResource(Carpeta);
+            File archivo = new File(urlCarpeta.getPath());
+            String[] nombresarchivos = archivo.list();
+            
+            
+            System.out.println(nombresarchivos.length);
+            System.out.println(contadorimagenes);
+            
+            
+            String Archivo = nombresarchivos[contadorimagenes];
+            System.out.println(nombresarchivos[contadorimagenes]);
+            if (contadorimagenes ==  1) {
+            contadorimagenes=nombresarchivos.length-1;
+            }else{
+                contadorimagenes = contadorimagenes+1;
+            }
+            ImageIcon imagen = new ImageIcon(getClass().getClassLoader().getResource(Carpeta + "/" + Archivo));
+            // Escala la imagen para ajustarla al tamaño del JLabel
+            imagen.setImage(imagen.getImage().getScaledInstance(JImagen.getWidth(), JImagen.getHeight(), Image.SCALE_SMOOTH));
+            JImagen.setIcon(imagen);
+            
+        }
+        
+        
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     
 public void guardarComo(JTextArea texto) {
@@ -693,6 +1023,7 @@ public void guardarComo(JTextArea texto) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JImagen;
     private javax.swing.JTextArea TXTAutomata;
     private javax.swing.JTextArea TXTConsole;
     private javax.swing.JButton jButton1;
@@ -702,15 +1033,12 @@ public void guardarComo(JTextArea texto) {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
@@ -721,7 +1049,6 @@ public void guardarComo(JTextArea texto) {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
