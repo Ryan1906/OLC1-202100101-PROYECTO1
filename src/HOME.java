@@ -543,44 +543,91 @@ public class HOME extends javax.swing.JFrame {
 
     lexico scanner;
     sintaxis analizador;
-    String[][] Errores;
+
     int contadorEr =0;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String entrada = TXTAutomata.getText();
-         try {
-            
-            scanner = new lexico(new java.io.StringReader(entrada));
-            analizador = new sintaxis(scanner);
-            analizador.parse();
-            
-            System.out.println("Analisis finalizado");
+    StringBuilder htmlTable = new StringBuilder();
+    String salida = "";
+    String entrada = TXTAutomata.getText();
+    try {
 
-            // generar reporte de errores lexicos
-            if (scanner.erroresLexicos.isEmpty()) {
-                System.out.println("No se encontraron errores lexicos");
-            } else {
+        scanner = new lexico(new java.io.StringReader(entrada));
+        analizador = new sintaxis(scanner);
+        analizador.parse();
+
+        System.out.println("Analisis finalizado");
+
+        if (!scanner.erroresLexicos.isEmpty() || !analizador.erroresSintacticos.isEmpty()) {
+            htmlTable.append("<html>\n");
+            htmlTable.append("<head>\n");
+            htmlTable.append("<title>Errores</title>\n");
+            htmlTable.append("<style>\n");
+            htmlTable.append("table {\n");
+            htmlTable.append("  border-collapse: collapse;\n");
+            htmlTable.append("}\n");
+            htmlTable.append("th, td {\n");
+            htmlTable.append("  border: 1px solid black;\n");
+            htmlTable.append("  padding: 8px;\n");
+            htmlTable.append("  text-align: left;\n");
+            htmlTable.append("}\n");
+            htmlTable.append("th {\n");
+            htmlTable.append("  background-color: #f2f2f2;\n");
+            htmlTable.append("}\n");
+            htmlTable.append("</style>\n");
+            htmlTable.append("</head>\n");
+            htmlTable.append("<body>\n");
+            htmlTable.append("<h1 style=\"font-family: Arial; font-size: 20px;\">Errores</h1>\n");
+
+            if (!scanner.erroresLexicos.isEmpty()) {
+                htmlTable.append("<h2 style=\"font-family: Arial; font-size: 16px;\">Errores léxicos</h2>\n");
+                htmlTable.append("<table>\n");
+                htmlTable.append("<tr><th>Tipo</th><th>Descripción</th><th>Línea</th><th>Columna</th></tr>\n");
                 scanner.erroresLexicos.forEach((error) -> {
-                    System.out.println(error.getTipo() + "| " + error.getDescripcion() + "| " + error.getLinea() + "| " + error.getColumna());
+                    htmlTable.append("<tr>");
+                    htmlTable.append("<td>").append(error.getTipo()).append("</td>");
+                    htmlTable.append("<td>").append(error.getDescripcion()).append("</td>");
+                    htmlTable.append("<td>").append(error.getLinea()).append("</td>");
+                    htmlTable.append("<td>").append(error.getColumna()).append("</td>");
+                    htmlTable.append("</tr>\n");
                 });
+                htmlTable.append("</table>\n");
+            }
+
+            if (!analizador.erroresSintacticos.isEmpty()) {
+                htmlTable.append("<h2 style=\"font-family: Arial; font-size: 16px;\">Errores sintácticos</h2>\n");
+                htmlTable.append("<table>\n");
+                htmlTable.append("<tr><th>Tipo</th><th>Descripción</th><th>Línea</th><th>Columna</th></tr>\n");
+                analizador.erroresSintacticos.forEach((error) -> {
+                    htmlTable.append("<tr>");
+                    htmlTable.append("<td>").append(error.getTipo()).append("</td>");
+                    htmlTable.append("<td>").append(error.getDescripcion()).append("</td>");
+                    htmlTable.append("<td>").append(error.getLinea()).append("</td>");
+                    htmlTable.append("<td>").append(error.getColumna()).append("</td>");
+                    htmlTable.append("</tr>\n");
+                });
+                htmlTable.append("</table>\n");
+            }
+
+            htmlTable.append("</body>\n");
+            htmlTable.append("</html>");
+            }
+
+            if (htmlTable.length() > 0) {
+            String reporteErrores = htmlTable.toString();
+            try {
+                FileWriter writer = new FileWriter("reporteErrores.html");
+                writer.write(reporteErrores);
+                writer.close();
+                salida+=("Se encontraron errores");
+            } catch (IOException e) {
+                salida+=("Ocurrió un error al guardar el archivo HTML: " + e.getMessage());
+            }
+            } else {
+                salida+=("No se encontraron errores léxicos ni sintácticos");
             }
             
-            // generar reporte de errores sintacticos
-            if (analizador.erroresSintacticos.isEmpty()) {
-                System.out.println("No se encontraron errores sintacticos");
-            } else {
-                analizador.erroresSintacticos.forEach((error) -> {
-                    System.out.println(error.getTipo() + "| " + error.getDescripcion() + "| " + error.getLinea() + "| " + error.getColumna());
-                    String Indice = Integer.toString(contadorEr);
-                    Errores[contadorEr][0] = Indice;
-                    Errores[contadorEr][1] = error.getTipo();
-                    Errores[contadorEr][2] = error.getDescripcion();
-                    Errores[contadorEr][3] = error.getLinea();
-                    Errores[contadorEr][4] = error.getColumna();
-                    
-                    
-                });
-            }
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -598,45 +645,7 @@ public class HOME extends javax.swing.JFrame {
             
                 
             }
-        String nombreArchivo = "ERRORES.html";
-    File archivo = new File(nombreArchivo);
-    try {
-        PrintWriter writer = new PrintWriter(archivo);
-        writer.println("<html>");
-        writer.println("<head>");
-        writer.println("<title> Tabla de Ejemplo </title>");
-        writer.println("</head>");
-        writer.println("<body>");
-        writer.println("<h1> Mi tabla de ejemplo </h1>");
-        writer.println("<table>");
-        writer.println("<tr>");
-        writer.println("<th> Columna 1 </th>");
-        writer.println("<th> Columna 2 </th>");
-        writer.println("<th> Columna 3 </th>");
-        writer.println("<th> Columna 4 </th>");
-        writer.println("<th> Columna 5 </th>");
-        writer.println("</tr>");
-        
-        // Aquí agregamos 3 filas de ejemplo a la tabla
-        for (int i = 1; i <= contadorEr; i++) {
-            writer.println("<tr>");
-            writer.println("<td>"+Errores[i][0]+"</td>");
-            writer.println("<td>"+Errores[i][1]+"</td>");
-            writer.println("<td>"+Errores[i][2]+"</td>");
-            writer.println("<td>"+Errores[i][3]+"</td>");
-            writer.println("<td>"+Errores[i][4]+"</td>");
-            writer.println("</tr>");
-        }
-        
-        writer.println("</table>");
-        writer.println("</body>");
-        writer.println("</html>");
-        writer.close();
-        System.out.println("El archivo se ha creado correctamente.");
-    } catch (FileNotFoundException ex) {
-        System.out.println("Error al crear el archivo: " + ex.getMessage());
-    }
-        
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

@@ -4,10 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/rjrsi/Desktop/OLC1-202100101-PROYECTO1/src/analizador/AFD.java</file>
-            <file>file:/C:/Users/rjrsi/Desktop/OLC1-202100101-PROYECTO1/src/SALIDAS_202100101/Reporte.json</file>
             <file>file:/C:/Users/rjrsi/Desktop/OLC1-202100101-PROYECTO1/src/analizador/Evaluacion.java</file>
             <file>file:/C:/Users/rjrsi/Desktop/OLC1-202100101-PROYECTO1/src/analizador/Conjunto.java</file>
+            <file>file:/C:/Users/rjrsi/Desktop/OLC1-202100101-PROYECTO1/build.xml</file>
             <file>file:/C:/Users/rjrsi/Desktop/OLC1-202100101-PROYECTO1/src/HOME.java</file>
+            <file>file:/C:/Users/rjrsi/Desktop/OLC1-202100101-PROYECTO1/src/analizador/Siguientes.java</file>
+            <file>file:/C:/Users/rjrsi/Desktop/OLC1-202100101-PROYECTO1/src/analizador/lexico.java</file>
+            <file>file:/C:/Users/rjrsi/Desktop/OLC1-202100101-PROYECTO1/src/analizador/sintactico.cup</file>
+            <file>file:/C:/Users/rjrsi/Desktop/OLC1-202100101-PROYECTO1/src/analizador/lexico.jflex</file>
+            <file>file:/C:/Users/rjrsi/Desktop/OLC1-202100101-PROYECTO1/src/analizador/arbol.java</file>
         </group>
     </open-files>
 </project-private>

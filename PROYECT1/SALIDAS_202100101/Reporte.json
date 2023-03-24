@@ -1,0 +1,10 @@
+[
+{
+"Valor": "'cadena entre comilla simple'",
+"Expresion_regular": "cadena",
+"Cadena Valida": "true"
+},{
+"Valor": "COMPI1 sale con 100",
+"Expresion_regular": "frase",
+"Cadena Valida": "true"
+}]
